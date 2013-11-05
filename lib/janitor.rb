@@ -1,7 +1,6 @@
-class Janitor
+require 'nokogiri'
 
-  def new(*args)
-  end
+class Janitor
 
   def clean(object)
    @object = object
