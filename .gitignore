@@ -1,0 +1,11 @@
+*.gem
+*.rbc
+.bundle
+.config
+pkg
+rdoc
+tmp
+.yardoc
+_yardoc
+.DS_Store
+*~
