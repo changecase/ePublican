@@ -10,3 +10,4 @@ _yardoc
 .DS_Store
 *~
 .ruby-*
+*.lock
