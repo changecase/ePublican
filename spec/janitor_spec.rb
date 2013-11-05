@@ -1,3 +1,5 @@
+require 'janitor'
+
 describe Janitor do
   describe 'clean' do
     it 'selects the proper document to clean' do
