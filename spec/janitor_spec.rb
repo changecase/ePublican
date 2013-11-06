@@ -34,12 +34,15 @@ describe Janitor do
       expect(@clean_xml).not_to eq(@clean_html)
     end
     
-    it 'removes the static numbering from ordered lists' do
-      expect(@clean_html.css('ol li').text).not_to match(/\d+\.\t.*/)
-    end
+    describe 'in ordered lists' do
 
-    it 'does not remove spans willy-nilly' do
-      expect(@clean_html.css('ol li span.modern').text).not_to eq('')
+      it 'removes the static numbering' do
+        expect(@clean_html.css('ol li').text).not_to match(/\d+\.\t.*/)
+      end
+
+      it 'does not remove spans willy-nilly' do
+        expect(@clean_html.css('span.modern').text).not_to eq('')
+      end
     end
   end
 end
