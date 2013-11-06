@@ -4,12 +4,16 @@ class Janitor
 
   def clean(object)
    @object = Nokogiri::HTML(object)
-   #@object.css('ol li span').text.gsub! /\d+\.\t(.*)/, '\1'
-   #@object.search("//ol/li/span/text()").each do |span|
-   #  span.content.sub!(/\d+\.\t(.*)/, "#{$1}")
+   #@object.xpath('//ol/li/span[starts-with(@class, "char-style-override")]').each do |span|
+   #  if span.content == /\d+\.\t/
+   #    span.remove
+   #  end
    #end
-   #for span in @object.xpath('//ol/li/span/text()')
-   #  span.content = span.content.gsub(/\d+\.\t/, '')
-   #end
+   @object.xpath('//ol/li/span[contains(@class, "char-style-override")]').each do |span|
+     if span.content =~ /\d+\.\t/
+       span.remove
+     end
+   end
+   @object
   end
 end
