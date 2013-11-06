@@ -12,3 +12,5 @@ _yardoc
 .ruby-*
 *.lock
 .rspec
+spec/resource/*
+*.swp

@@ -1,12 +1,11 @@
 require 'janitor'
-require 'helpers/janitor_spec_helper'
 
 describe Janitor do
 
   describe '#clean' do
    
     before do
-      @html_doc = Nokogiri::HTML('
+      html_doc = '
         <html>
           <body>
             <h1>Best Pubs in Portland</h1>
@@ -19,24 +18,20 @@ describe Janitor do
               </li>
             </ol>
           </body>
-        </html>')
-      @xml_doc =  Nokogiri::XML('<root><pubs><pub><name>The Horse Brass</name></pub></pubs></root>')
+        </html>'
+      xml_doc = '<root><pubs><pub><name>The Horse Brass</name></pub></pubs></root>'
       @janitor = Janitor.new
+      @clean_html = @janitor.clean(html_doc)
+      @clean_xml = @janitor.clean(xml_doc)
     end
 
     it 'selects the proper document to clean' do
-      expect(@janitor.clean(@html_doc)).to eq(@html_doc)
-      expect(@janitor.clean(@xml_doc)).not_to eq(@html_doc)
+      expect(@clean_html.css('h1').text).to eq('Best Pubs in Portland')
+      expect(@clean_xml).not_to eq(@clean_html)
     end
-
-    describe 'selects the proper element to clean when' do
-      before do
-        @cleaned_html = @janitor.clean(@html_doc)
-      end
-
-      it 'the element to clean is a list item in an ordered list' do
-        expect(@cleaned_html.css('ol li').text).not_to match(/\d+.\t.*/)
-      end
+    
+    it 'removes the static numbering from ordered lists' do
+      expect(@clean_html.css('ol li').text).not_to match(/\d+\.\t.*/)
     end
   end
 end
