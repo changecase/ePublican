@@ -11,6 +11,10 @@ class Janitor
        span.remove
      end
    end
+   
+   # Remove .paragraph on <p>
+   @object.css('p.Paragraph').remove_class('Paragraph')
+   @object.css('p').remove_class(nil)
 
    # Return the (nokogiri) object
    @object

@@ -9,6 +9,7 @@ describe Janitor do
         <html>
           <body>
             <h1>Best Pubs in Portland</h1>
+            <p class="Paragraph">The following is a list of the best places to drink in PDX.</p>
             <ol>
               <li>
                 <span class="char-style-override-17">1.&#9;</span>The Horse Brass
@@ -19,6 +20,7 @@ describe Janitor do
               <li>
                 <span class="char-style-override-17">3.&#9;</span>
                 <span class="modern char-style-override-18">Columbia Brewing</span>
+                <p class="location Paragraph">Located in the Hollywood district</p>
               </li>
             </ol>
           </body>
@@ -42,6 +44,13 @@ describe Janitor do
 
       it 'does not remove spans willy-nilly' do
         expect(@clean_html.css('span.modern').text).not_to eq('')
+      end
+    end
+
+    describe 'in paragraphs' do
+      
+      it 'removes the unnecessary .paragraph class on <p> tags' do
+        expect(@clean_html.css('p.Paragraph')).to be_empty
       end
     end
   end
