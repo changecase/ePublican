@@ -8,7 +8,14 @@ describe Janitor do
       html_doc = '
         <html>
           <body>
-            <h1>Best Pubs in Portland</h1>
+          <h1>Best Pubs in Portland</h1>
+            <div class="Figure--no-border- frame-2">
+              <img class="frame-9 book-image" src="image/2-1%20Beer%20in%20Barrels.png" alt="2-1%20Beer%20in%20Barrels.png" />
+            </div>
+            <p class="graphic-holder"></p>
+            <ol>
+              <li class="figure"><em class="char-style-override-16">Figure 1-1 </em>Beer in Barrels</li>
+            </ol>
             <p class="Paragraph">The following is a list of the best places to drink in PDX.</p>
             <ol>
               <li>
@@ -35,9 +42,9 @@ describe Janitor do
           </body>
         </html>'
       xml_doc = '<root><pubs><pub><name>The Horse Brass</name></pub></pubs></root>'
-      @janitor = Janitor.new
-      @clean_html = @janitor.clean(html_doc)
-      @clean_xml = @janitor.clean(xml_doc)
+      janitor = Janitor.new
+      @clean_html = janitor.clean(html_doc)
+      @clean_xml = janitor.clean(xml_doc)
     end
 
     it 'selects the proper document to clean' do
@@ -67,6 +74,10 @@ describe Janitor do
       
       it 'removes the unnecessary .paragraph class on <p> tags' do
         expect(@clean_html.css('p.Paragraph')).to be_empty
+      end
+      
+      it 'removes the unnecessary .graphic-holder <p> placeholders' do
+        expect(@clean_html.css('.graphic-holder')).to be_empty
       end
     end
   end

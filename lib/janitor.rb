@@ -21,8 +21,13 @@ class Janitor
    
    # Remove .paragraph on <p>
    @object.css('p.Paragraph').remove_class('Paragraph')
-   @object.css('p').remove_class(nil)
+  # @object.css('p').remove_class(nil) # removed. This _apparently_ gets rid
+   # of _all_ classes on <p>. I'd like to figure out a way to remove the class 
+   # attribute from elements when the class attribute is empty.
 
+   # Remove p.graphic-holder placeholders
+   @object.css('p.graphic-holder').remove
+   
    # Return the (nokogiri) object
    @object
   end
