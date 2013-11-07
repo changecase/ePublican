@@ -10,7 +10,7 @@ describe Janitor do
           <body>
           <h1>Best Pubs in Portland</h1>
             <div class="Figure--no-border- frame-2">
-              <img class="frame-9 book-image" src="image/2-1%20Beer%20in%20Barrels.png" alt="2-1%20Beer%20in%20Barrels.png" />
+              <img class="frame-9" src="image/2-1%20Beer%20in%20Barrels.png" alt="2-1%20Beer%20in%20Barrels.png" />
             </div>
             <p class="graphic-holder"></p>
             <ol>
@@ -59,7 +59,7 @@ describe Janitor do
       end
 
       it 'does not remove spans willy-nilly' do
-        expect(@clean_html.css('span.modern').text).not_to eq('')
+        expect(@clean_html.at_css('span.modern').text).not_to be_nil
       end
     end
     
@@ -73,11 +73,18 @@ describe Janitor do
     describe 'in paragraphs' do
       
       it 'removes the unnecessary .paragraph class on <p> tags' do
-        expect(@clean_html.css('p.Paragraph')).to be_empty
+        expect(@clean_html.at_css('p.Paragraph')).to be_nil
       end
       
       it 'removes the unnecessary .graphic-holder <p> placeholders' do
-        expect(@clean_html.css('.graphic-holder')).to be_empty
+        expect(@clean_html.at_css('.graphic-holder')).to be_nil
+      end
+    end
+
+    describe 'in figures' do
+
+      it 'adds .book-image to figure <img> elements' do
+        expect(@clean_html.at_css('div.Figure--no-border- img.book-image')).not_to be_nil
       end
     end
   end

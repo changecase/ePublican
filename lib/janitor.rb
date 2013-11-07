@@ -27,6 +27,9 @@ class Janitor
 
    # Remove p.graphic-holder placeholders
    @object.css('p.graphic-holder').remove
+
+   # Add .book-image to <img> figures
+   @object.css('div.Figure--no-border- img').add_class('book-image')
    
    # Return the (nokogiri) object
    @object
