@@ -23,6 +23,15 @@ describe Janitor do
                 <p class="location Paragraph">Located in the Hollywood district</p>
               </li>
             </ol>
+            <p class="Paragraph">Please note, we are not liable for:</p>
+            <ul>
+              <li class="bullet--level-1-">
+                <span class="char-style-override-15">&#9;</span>damage
+              </li> 
+              <li class="bullet--level-1-">
+                <span class="char-style-override-15">&#9;</span>drunkeness
+              </li> 
+            </ul>
           </body>
         </html>'
       xml_doc = '<root><pubs><pub><name>The Horse Brass</name></pub></pubs></root>'
@@ -44,6 +53,13 @@ describe Janitor do
 
       it 'does not remove spans willy-nilly' do
         expect(@clean_html.css('span.modern').text).not_to eq('')
+      end
+    end
+    
+    describe 'in unordered lists' do
+
+      it 'removes the false bullets' do
+        expect(@clean_html.css('ul li').text).not_to match(/\t.*/)
       end
     end
 
