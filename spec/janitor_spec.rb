@@ -86,6 +86,11 @@ describe Janitor do
       it 'adds .book-image to figure <img> elements' do
         expect(@clean_html.at_css('div.Figure--no-border- img.book-image')).not_to be_nil
       end
+
+      it 'converts the single list item figure caption ordered lists to p.figure-caption' do
+        expect(@clean_html.at_css('ol li.figure')).to be_nil
+        expect(@clean_html.at_css('p.figure')).not_to be_nil
+      end
     end
   end
 end
