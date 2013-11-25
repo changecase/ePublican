@@ -30,6 +30,12 @@ class Janitor
 
    # Add .book-image to <img> figures
    @object.css('div.Figure--no-border- img').add_class('book-image')
+
+   # Convert ol li.figure to p.figure
+   @object.css('ol>li.figure')).each do |ol|
+     figure_text = ol.at_css('li.figure')
+     ol.remove
+     p_wrapper = figure_text.wrap('<p class="figure"></p>')
    
    # Return the (nokogiri) object
    @object
